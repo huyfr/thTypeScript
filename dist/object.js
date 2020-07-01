@@ -15,8 +15,8 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("./scss/styles.scss");
 var customer = {
-    name: 'Bob',
-    age: 50
+    name: "Huy",
+    age: 24
 };
 console.log(customer);
 var Shape = (function () {

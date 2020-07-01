@@ -37,12 +37,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 require("./scss/styles.scss");
-var wait5Secs = new Promise(function (resolve, reject) {
+var wait5Secs = new Promise(function (resolve, rejects) {
     setTimeout(function () {
         resolve(5);
     }, 5000);
 });
-wait5Secs.then(function (data) { return console.log(data); }).catch(function (err) { return console.error(err); });
+wait5Secs.then(function (data) { return console.log(data); }).catch(function (err) { return console.log(err); });
+var promise = new Promise(function (resolve, reject) {
+    resolve("done");
+    reject(new Error("..."));
+    setTimeout(function () { return resolve("..."); });
+});
+promise.then(function (data) { return console.log(data); });
 function httpGet(url) {
     return new Promise(function (resolve, reject) {
         var request = new XMLHttpRequest();
@@ -55,16 +61,16 @@ function httpGet(url) {
             }
         };
         request.onerror = function () {
-            reject(new Error('XMLHttpRequest Error: ' + this.statusText));
+            reject(new Error("XMLHttpRequest Error: " + this.statusText));
         };
         request.open('GET', url);
         request.send();
     });
 }
 httpGet('https://api.github.com/search/repositories?q=angular').then(function (value) {
-    console.log('Contents: ' + value);
+    console.log("Contents: " + value);
 }, function (reason) {
-    console.error('Something went wrong', reason);
+    console.error("Something went wrong", reason);
 });
 function parseResponse(value) {
     try {
@@ -78,14 +84,8 @@ httpGet('https://api.github.com/search/repositories?q=angular')
     .then(parseResponse)
     .then(function (data) { return console.log(data); })
     .catch(function (reason) {
-    console.error('Something went wrong', reason);
+    console.error("Something went wrong", reason);
 });
-var promise = new Promise(function (resolve, reject) {
-    resolve('done');
-    reject(new Error('…'));
-    setTimeout(function () { return resolve('…'); });
-});
-promise.then(function (data) { return console.log(data); });
 function f() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -96,7 +96,7 @@ function f() {
 function fp() {
     return Promise.resolve(1);
 }
-f().then(function (data) { return console.log('async fn', data); });
+f().then(function (data) { return console.log("async fn", data); });
 (function () { return __awaiter(_this, void 0, void 0, function () {
     var data;
     return __generator(this, function (_a) {
@@ -104,7 +104,7 @@ f().then(function (data) { return console.log('async fn', data); });
             case 0: return [4, fp()];
             case 1:
                 data = _a.sent();
-                console.log('async/await', data);
+                console.log("async/await", data);
                 return [2];
         }
     });
@@ -128,158 +128,4 @@ function fns() {
     });
 }
 fns();
-function getUser(username) {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, e_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    return [4, fetch("https://api.github.com/search/users?q=" + username)];
-                case 1:
-                    response = _a.sent();
-                    return [4, response.json()];
-                case 2: return [2, _a.sent()];
-                case 3:
-                    e_1 = _a.sent();
-                    throw e_1;
-                case 4: return [2];
-            }
-        });
-    });
-}
-getUser('bob')
-    .then(function (res) { return console.log(res); })
-    .catch(function (err) { return console.warn(err); });
-(function () {
-    var x = 0;
-    function r5() {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                x += 1;
-                console.log(x);
-                return [2, 5];
-            });
-        });
-    }
-    (function () { return __awaiter(_this, void 0, void 0, function () {
-        var _a;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    _a = x;
-                    return [4, r5()];
-                case 1:
-                    x = _a + _b.sent();
-                    console.log(x);
-                    return [2];
-            }
-        });
-    }); })();
-})();
-(function () {
-    var x = 0;
-    function r5() {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                x += 1;
-                console.log(x);
-                return [2, 5];
-            });
-        });
-    }
-    (function () { return __awaiter(_this, void 0, void 0, function () {
-        var y;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4, r5()];
-                case 1:
-                    y = _a.sent();
-                    x += y;
-                    console.log(x);
-                    return [2];
-            }
-        });
-    }); })();
-})();
-function fetchAllBook() {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4, new Promise(function (resolve) {
-                        console.log('Waiting 2s...');
-                        setTimeout(function () { return resolve(); }, 2000);
-                    })];
-                case 1:
-                    _a.sent();
-                    console.log('fetchAllBook');
-                    return [2, [
-                            {
-                                id: 'book-id-1',
-                                authorId: 'author-id-1'
-                            }, {
-                                id: 'book-id-2',
-                                authorId: 'author-id-2'
-                            }, {
-                                id: 'book-id-3',
-                                authorId: 'author-id-3'
-                            }
-                        ]];
-            }
-        });
-    });
-}
-function fetchAuthorById(authorId) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            console.log('fetchAuthorById');
-            return [2, {
-                    authorId: authorId,
-                }];
-        });
-    });
-}
-function getBooksAndAuthor(authorId) {
-    return __awaiter(this, void 0, void 0, function () {
-        var books, author;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4, fetchAllBook()];
-                case 1:
-                    books = _a.sent();
-                    return [4, fetchAuthorById(authorId)];
-                case 2:
-                    author = _a.sent();
-                    return [2, {
-                            author: author,
-                            books: books.filter(function (book) { return book.authorId === authorId; }),
-                        }];
-            }
-        });
-    });
-}
-getBooksAndAuthor('author-id-2');
-function getBooksAndAuthorFixed(authorId) {
-    return __awaiter(this, void 0, void 0, function () {
-        var bookPromise, authorPromise, books, author;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    bookPromise = fetchAllBook();
-                    authorPromise = fetchAuthorById(authorId);
-                    return [4, bookPromise];
-                case 1:
-                    books = _a.sent();
-                    return [4, authorPromise];
-                case 2:
-                    author = _a.sent();
-                    return [2, {
-                            author: author,
-                            books: books.filter(function (book) { return book.authorId === authorId; }),
-                        }];
-            }
-        });
-    });
-}
-getBooksAndAuthorFixed('author-id-2');
 //# sourceMappingURL=promise.js.map
