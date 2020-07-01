@@ -28,4 +28,4 @@ x[3] = "world";
 x[5] = 100.25;
 console.log(x[5].toString());
 
-x[6] = true;
+// x[6] = true;
